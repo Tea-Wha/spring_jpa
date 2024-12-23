@@ -14,7 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> { // JpaRe
      boolean existsByEmail(String email);
     Optional<Member> findByEmailAndPassword(String email, String password);
 
-    // 이하는 커스텀 메서드가 아님
     /**
      * 현재 인터페이스가 인터페이스 메서드를 Override하는 목적은 타입을 구체화하기 위함이다..
      *
@@ -27,7 +26,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> { // JpaRe
      *     void save(User user); // 구체적인 타입으로 재선언
      * }
      * */
-    List<Member> findAll();
 }
 
 /**

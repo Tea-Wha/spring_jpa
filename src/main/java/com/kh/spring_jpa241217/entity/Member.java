@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +17,7 @@ import java.time.LocalDateTime;
     @UniqueConstraint(name = "unique_email", columnNames = "email"),
 })
 @Entity
+@EntityListeners(AuditingEntityListener.class) // 시간 정보를 어노테이션으로 처리하기 위해 필요
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,16 +41,20 @@ public class Member {
     @Size(min = 1, max = 50, message = "이름은 1자 이상, 50자 이하여야 합니다.")
     private String name;
 
-    @Column(nullable = false)
+    @CreatedDate
+    @Column(nullable = false, updatable = false) // 최초 생성 이후 update X
     private LocalDateTime registeredAt;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    // JPA의 콜백 메서드,
-    // JPA Entity 라이프 사이클에서 persist 상태로 변하기 전에 실행됨
-    // repository save 메서드 호출시 persist 상태가 되며, 해당 어노테이션은 신규 데이터 삽입에만 적용됨
-    @PrePersist
-    protected void onCreate() {
-        this.registeredAt = LocalDateTime.now();
-    }
+
+
+//    // JPA의 콜백 메서드,
+//    // JPA Entity 라이프 사이클에서 persist 상태로 변하기 전에 실행됨
+//    // repository save 메서드 호출시 persist 상태가 되며, 해당 어노테이션은 신규 데이터 삽입에만 적용됨
+//    @PrePersist
+//    protected void beforeCreate() {
+//        this.registeredAt = LocalDateTime.now();
+//    }
 }

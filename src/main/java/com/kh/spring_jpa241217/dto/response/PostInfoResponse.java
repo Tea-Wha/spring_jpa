@@ -9,10 +9,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MemberInfoResponse {
+public class PostInfoResponse {
+    private String boardName;
     private Long memberId;
-    private String email;
-    private String name;
-    private LocalDateTime registeredAt;
+    private Long postId;
+    private String title;
+    private String content;
+    private LocalDateTime publishedAt;
     private LocalDateTime updatedAt;
 }
