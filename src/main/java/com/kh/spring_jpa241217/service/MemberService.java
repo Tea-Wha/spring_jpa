@@ -5,10 +5,10 @@ import com.kh.spring_jpa241217.dto.response.MemberInfoResponse;
 import com.kh.spring_jpa241217.entity.Member;
 import com.kh.spring_jpa241217.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,16 +18,12 @@ import java.util.stream.Collectors;
 public class MemberService {
     // Autowired 같은 경우, RequiredArgsConstructor가 있기 떄문에,
     // 생성자에서 의존성 주입을 받으므로 생략 가능
+    private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
     public MemberInfoResponse save(SaveMemberRequest requestDto) {
-        Member member = new Member();
-        member.setPassword(requestDto.getPassword());
-        member.setEmail(requestDto.getEmail());
-        member.setName(requestDto.getName());
-        memberRepository.save(member);
-
-        return convertToMemberInfoResponse(member);
+        Member member = requestDto.toEntity(passwordEncoder);
+        return MemberInfoResponse.of(memberRepository.save(member));
     }
 
     public MemberInfoResponse update(Long id, SaveMemberRequest requestDto) {

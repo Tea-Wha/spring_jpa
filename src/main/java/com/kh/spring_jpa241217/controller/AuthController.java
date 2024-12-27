@@ -1,5 +1,6 @@
 package com.kh.spring_jpa241217.controller;
 
+import com.kh.spring_jpa241217.dto.TokenDto;
 import com.kh.spring_jpa241217.dto.request.LoginRequest;
 import com.kh.spring_jpa241217.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("login")
-    public ResponseEntity<Boolean> handleLogin(@RequestBody LoginRequest dto) {
-        boolean isSuccess = authService.login(dto);
-        return ResponseEntity.ok(isSuccess);
+    public ResponseEntity<TokenDto> handleLogin(@RequestBody LoginRequest dto) {
+        return ResponseEntity.ok(authService.login(dto));
     }
 
 }

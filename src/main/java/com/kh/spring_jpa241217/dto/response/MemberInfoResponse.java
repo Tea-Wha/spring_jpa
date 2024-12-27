@@ -1,5 +1,6 @@
 package com.kh.spring_jpa241217.dto.response;
 
+import com.kh.spring_jpa241217.entity.Member;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,4 +16,14 @@ public class MemberInfoResponse {
     private String name;
     private LocalDateTime registeredAt;
     private LocalDateTime updatedAt;
+
+    public static MemberInfoResponse of(Member member) {
+        return MemberInfoResponse.builder()
+                .memberId(member.getId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .registeredAt(member.getRegisteredAt())
+                .updatedAt(member.getUpdatedAt())
+                .build();
+    }
 }

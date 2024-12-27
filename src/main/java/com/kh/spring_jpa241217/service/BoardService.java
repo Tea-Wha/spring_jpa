@@ -21,6 +21,11 @@ public class BoardService {
         return board.getName();
     }
 
+    public void test() {
+        Board targetBoard = boardRepository.findByName("자유게시판").orElseThrow(() -> new NoSuchElementException("자유게시판 not found"));
+        targetBoard.getPosts().clear();
+    }
+
     public Board getByName(String boardName) {
         return boardRepository.findByName(boardName).orElseThrow(() -> new NoSuchElementException("해당 게시판은 존재하지 않습니다."));
     }

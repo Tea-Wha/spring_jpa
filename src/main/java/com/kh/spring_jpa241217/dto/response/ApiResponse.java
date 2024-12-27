@@ -6,10 +6,10 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiResponse<T> {
+public class ApiResponse {
     private boolean success;
     private String message;
-    private T data;
+    private Object data;
 
     public ApiResponse (String message) {
         this.success = false;

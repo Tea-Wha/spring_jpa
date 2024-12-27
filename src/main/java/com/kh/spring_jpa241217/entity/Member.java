@@ -1,8 +1,10 @@
 package com.kh.spring_jpa241217.entity;
 
+import com.kh.spring_jpa241217.constant.Authority;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Member {
 
     // 생성타입은 TABLE(, SEQUENCE(시퀀스 생성), IDENTITY(DB에 위임, MySQL의 경우 AUTO_INCREMENT)가 있다.
@@ -33,8 +36,7 @@ public class Member {
     @Size(min = 5, max = 50, message = "이메일은 5자 이상, 50자 이하여야 합니다.")
     private String email;
 
-    @Column(nullable = false, length = 50)
-    @Size(min = 8, max = 50, message = "비밀번호는 8자 이상, 50자 이하여야 합니다.")
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, length = 50)
@@ -48,7 +50,9 @@ public class Member {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Authority authority;
 
 //    // JPA의 콜백 메서드,
 //    // JPA Entity 라이프 사이클에서 persist 상태로 변하기 전에 실행됨

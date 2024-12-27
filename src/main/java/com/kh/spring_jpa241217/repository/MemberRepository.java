@@ -13,6 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> { // JpaRe
     // 아래 custom 메서드는 작명 규칙에 따라 정의 되어야 함
      boolean existsByEmail(String email);
     Optional<Member> findByEmailAndPassword(String email, String password);
+    Optional<Member> findByEmail(String email);
 
     /**
      * 현재 인터페이스가 인터페이스 메서드를 Override하는 목적은 타입을 구체화하기 위함이다..

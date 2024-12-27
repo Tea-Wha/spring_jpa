@@ -29,4 +29,10 @@ public class BoardController {
         ApiResponse<Map<String, String>> response = new ApiResponse<>(true, "게시판 등록 성공", responseData);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping
+    public ResponseEntity<Boolean> test() {
+        boardService.test();
+        return ResponseEntity.status(HttpStatus.OK).body(true);
+    }
 }
